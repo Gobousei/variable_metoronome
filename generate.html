@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>可変メトロノームジェネレーター</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <meta
+  name="description"
+  content="variable_metoronome_generater" />
+  <style>
+    #setting_area{
+        width: 500px;
+        height: 40px;
+    }
+  </style>
+</head>
+<body>
+    <section class="hero is-warning">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title">
+                可変メトロノームジェネレーター
+            </h1>
+          </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h1 class="is-size-1">
+                概要
+            </h1>
+            リモート演奏を行うには全員が正確なテンポで演奏することが重要です。しかし普通のメトロノームや
+            webアプリケーションでは途中で拍子を変えたりテンポを変えることができません。
+            このwebアプリは、BPM,拍子を設定することのできるメトロノームでリモート演奏を補助します。
+            <h1 class="is-size-1"style="margin-top: 30px;">
+                設定方法
+            </h1>
+            次のテキストエリアにBPM,拍子,小節数の順に入力し、入力された小節数数えた次のBPM,拍子,小節数を
+            改行して入力してください。
+            <h1 class="is-size-1"style="margin-top: 30px;">
+                設定
+            </h1>
+            <textarea id="setting_area" placeholder="例）83,4,10   
+83,3,5"></textarea>
+
+            <div class="has-text-centered" style="margin-top: 30px;">
+                <button id="generate" onclick="generate()"class="button is-warning is-large">作成</button>
+            </div>
+        </div>
+    </section>
+    <div class="modal" id="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">作成完了</p>
+            <button class="close1 delete" aria-label="close"></button>
+          </header>
+          <section class="modal-card-body">
+            ↓URL↓</p>
+            <a href="" id="url"></a>
+          </section>
+          <footer class="modal-card-foot">
+            <div class="buttons">
+              <button class="button is-success" onclick="copy()">コピー</button>
+              <button class="close2 button">閉じる</button>
+            </div>
+          </footer>
+        </div>
+      </div>
+    <script>
+        var url;
+        function generate(){
+            const set = document.querySelector('#setting_area').value;
+            if(!set){
+                alert('入力してください');
+            }else{
+            let first_array = set.split('\n');
+            let set_array = [];
+            for(let i=0;i<first_array.length;i++){
+                let act_array = first_array[i].split(",");
+                let number_array = [];
+                for(let j=0;j<act_array.length;j++){
+                  number_array.push(Number(act_array[j]));
+                }
+                set_array.push(number_array);
+            }
+            let error;
+            for(let i=0;i<set_array.length;i++){
+                if(set_array[i].length!=3){
+                  console.log(set_array[i].length);
+                  error = i+1
+                }
+            }
+            if(error){
+              alert(`書式違反${error}行目`);
+            }else{
+            console.log(set_array);
+            url = 'https://gobousei.github.io/variable_metoronome/record.html?parameter='+JSON.stringify(set_array);
+            const a = document.querySelector('#url');
+            a.href = url;
+            a.innerHTML = url;
+            document.querySelector('#modal').classList.add('is-active');
+            }
+            }
+        }
+
+        function copy(){
+          navigator.clipboard.writeText(url);
+          alert('コピーしました！');
+        }
+
+        document.querySelector('.close1').addEventListener('click',()=>{
+            document.querySelector('#modal').classList.remove('is-active');
+        });
+        document.querySelector('.close2').addEventListener('click',()=>{
+            document.querySelector('#modal').classList.remove('is-active');
+        });
+    </script>
+</body>
+</html>

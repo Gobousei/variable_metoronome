@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>撮影ページ</title>
+    <meta
+  name="description"
+  content="variable_metoronome_recorder" />
+    <style>
+      body{
+        text-align: center;
+      }
+      #videoRecorded{
+        height: 80vh;
+        display: none;
+      }
+      #videoLive{
+        height: 80vh;
+      }
+      .button{
+        width: 50%;
+        height: 50px;
+        background-color: yellow;
+      }
+      td{
+        height: 10vh;
+        border: solid;
+      }
+      #child{
+        width: 1000px;
+        text-align: center;
+      }
+      #parent{
+        width: 100%;
+        display: flex;
+      }
+      #text{
+        width: 300px;
+        font-size: 30px;
+      }
+      #downroadbutton{
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="parent">
+      <div id="text">スタートしてください</div>
+      <div id="child">
+        <table id="table"><tr><td></td><td></td><td></td></tr></table>
+      </div>
+    </div>
+    <div id="Livediv">
+      <video autoplay muted playsinline id="videoLive"></video>
+    </div>
+    <div id="recordeddiv">
+      <video controls playsinline id="videoRecorded"></video>
+    </div>
+    <div style="text-align: right;">
+      <button type="button" id="buttonStart" class="button">スタート</button>
+      <button type="button" id="buttonStop" class="button" disabled>ストップ</button>
+      <button type="button" id="buttonReset" class="button" onclick="window.location.reload()">リセット</button>
+    </div>
+    <button type="button" id="downroadbutton" class="button">ダウンロード</button>
+    <script src="main.js"></script>
+  </body>
+</html>
