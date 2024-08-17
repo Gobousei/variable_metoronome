@@ -96,7 +96,7 @@
               alert(`書式違反${error}行目`);
             }else{
             console.log(set_array);
-            url = 'https://gobousei.github.io/variable_metoronome/record.html?parameter='+JSON.stringify(set_array);
+            url = location.href.split('generate.html')[0] + 'record.html?parameter='+JSON.stringify(set_array);
             const a = document.querySelector('#url');
             a.href = url;
             a.innerHTML = url;
