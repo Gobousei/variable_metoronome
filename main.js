@@ -127,7 +127,9 @@ function count(bpm,display,beats,measure,next,fin){//カウント
     table.insertCell(0);
     }
   }else if(balance_cell < 0){
-    table.deleteCell(balance_cell);
+    for(let c = 0; c<balance_cell*(-1);c++){
+      table.deleteCell(0);
+    }
   }
   },ms);
   
