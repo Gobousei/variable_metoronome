@@ -1,5 +1,4 @@
 
-let spare =3;//**予備小節数 */
 const buttonStart = document.querySelector('#buttonStart')
 const buttonStop = document.querySelector('#buttonStop')
 const buttonReset = document.querySelector('#buttonReset')
@@ -8,6 +7,9 @@ const videoRecorded = document.querySelector('#videoRecorded')
 const table = document.querySelector('#table').rows[0];
 const downloadbutton = document.querySelector('#downroadbutton')
 const text = document.querySelector('#text')
+let array_location = -2;
+const param = JSON.parse(location.href.split('=')[1]);
+let memory;
 var videodata;
 table.width='100%';
 buttonReset.style.display='none'
@@ -71,14 +73,7 @@ async function main () {//**カメラの起動を含む常時起動関数 */
 
 main()
 
-
-
-//**testing */
-
- let array_location = -2;
- const param = JSON.parse(location.href.split('=')[1]);
- let memory;
-function setting(){
+function setting(){//設定の読み込みとカウントの開始
   array_location++;
     if(array_location == -1){
       let bpm = param[0][0];
@@ -114,7 +109,7 @@ function setting(){
     
 }
 
-function count(bpm,display,beats,measure,next,fin){
+function count(bpm,display,beats,measure,next,fin){//カウント
   var ms = 60000/bpm; //繰り返し周期（ミリ秒）を設定
   let i= -1;
 
