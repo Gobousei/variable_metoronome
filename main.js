@@ -18,6 +18,13 @@ for(l=0;l<3;l++){
   table.cells[l].width= '333px';
   }
 
+  var ua = navigator.userAgent;
+	if (ua.indexOf('iPhone') > 0
+			|| (ua.indexOf('Android') > 0) && (ua.indexOf('Mobile') > 0)
+			|| ua.indexOf('Windows Phone') > 0) {
+        alert('このページはスマートフォンに対応していません。');
+		}
+
 async function main () {//**カメラの起動を含む常時起動関数 */
     const stream = await navigator.mediaDevices.getUserMedia({ 
       video: true,
